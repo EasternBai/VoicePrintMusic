@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 别名 -->
+	<typeAliases>
+	    <!-- 每个类都分别配置别名 -->
+		<!-- <typeAlias alias="mu" type="com.cc.po.MyUsers"/>
+		<typeAlias alias="page" type="com.cc.po.Page"/> -->
+		
+		<!-- 给包下所有类配置别名，别名=类名 -->
+		<package name="com.cc.po"/>
+	</typeAliases>
+	<!-- 操作配置 -->
+	<mappers>
+		<mapper resource="com/cc/dao/MyUsersMapper.xml"/>
+	</mappers>
+</configuration>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cc.dao.IMyUsersDao">
+    <insert id="add" parameterType="MyUsers">	  	
+		INSERT INTO MYUSERS(NAME,AGE,DEPT_ID,HEAD_PATH)
+		VALUES
+		(#{name},#{age},#{dept.id},#{headpath})
+  	</insert>
+  	
+  	<resultMap type="MyUsers" id="SelRM1">
+  	     <id property="id" column="ID"/>
+  	     <result property="name" column="NAME"/>
+  	     <result property="age" column="AGE"/>
+  	     <result property="headpath" column="HEAD_PATH"/>
+  	     <association property="dept" javaType="MyDept">
+  	         <id property="id" column="DEPT_ID"/>
+  	         <result property="name" column="DEPT_NAME"/>
+  	     </association> 	    
+  	</resultMap>
+  	
+  	<select id="findAll" resultMap="SelRM1" parameterType="Page">
+  	    SELECT * FROM 
+		(
+			SELECT 
+				mu.`id`,
+				mu.`name`,
+				mu.`age`,
+				mu.`head_path`,
+				md.`id` AS dept_id,
+				md.`name` AS dept_name
+			FROM MYUSERS mu
+			INNER JOIN mydept md ON mu.`dept_id`=md.`id`
+			ORDER BY mu.ID DESC
+		) t
+		LIMIT #{begin},#{pageSize} 
+		
+		
+  	</select>
+  	
+  	<select id="findCount" resultType="int" parameterType="MyUsers">
+  		SELECT COUNT(ID) FROM MYUSERS
+  	</select>
+  	
+    <resultMap type="MyMusic" id="SelMusic">
+         <id property="id" column="ID"/>
+  	     <result property="imageHashId" column="imgHashId"/>
+  	     <result property="musicPath" column="musicPath"/> 
+  	</resultMap>
+  	
+  	<select id="findMusic" resultMap="SelMusic" parameterType="MyMusic">
+  		SELECT * FROM MYMUSIC
+  	</select>
+</mapper>
