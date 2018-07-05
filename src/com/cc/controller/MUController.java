@@ -186,7 +186,7 @@ public class MUController
 		{
 			mu = list.get(index);
 			sourceImgHash = mu.getHashId();
-			matchResult = checkImgHash(compareImgHash, sourceImgHash, 20);
+			matchResult = checkImgHash(compareImgHash, sourceImgHash, 25);
 			if(matchResult)
 			{
 				musicPath = mu.getMusicPath();
